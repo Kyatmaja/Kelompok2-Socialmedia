@@ -1,3 +1,48 @@
+//contoh teman
+const defaultUsers = [
+    {
+        id: 1,
+        name: "Andi Pratama",
+        username: "andi",
+        email: "andi@gmail.com",
+        password: "123456789"
+    },
+    {
+        id: 2,
+        name: "Budi Santoso",
+        username: "budi",
+        email: "budi@gmail.com",
+        password: "123456789"
+    },
+    {
+        id: 3,
+        name: "Citra Lestari",
+        username: "citra",
+        email: "citra@gmail.com",
+        password: "123456789"
+    },
+    {
+        id: 4,
+        name: "Dina Amelia",
+        username: "dina",
+        email: "dina@gmail.com",
+        password: "123456789"
+    },
+    {
+        id: 5,
+        name: "Eko Saputra",
+        username: "eko",
+        email: "eko@gmail.com",
+        password: "123456789"
+    },
+    {
+        id: 6,
+        name: "Fajar Ramadhan",
+        username: "fajar",
+        email: "fajar@gmail.com",
+        password: "123456789"
+    }
+];
 
 function getUsers() {
     const users = localStorage.getItem("users");
@@ -134,7 +179,7 @@ if (loginForm) {
         alert("Login berhasil!");
 
         window.location.href =
-            "users.html";
+            "dashboard.html";
     });
 }
 
@@ -275,13 +320,186 @@ function checkLogin() {
     }
 
 }
+function UsersDirectory(
+    searchText = ""
+) {
 
+    const container =
+        document.getElementById("usersList");
+
+    if (!container) {
+        return;
+    }
+
+    const currentUser =
+        getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+    const users = getUsers();
+
+    const friends = getFriends();
+
+    const requests = getRequests();
+
+
+    const filteredUsers =
+        users.filter(function(user) {
+
+            if (
+                user.id ===
+                currentUser.id
+            ) {
+                return false;
+            }
+
+            const text =
+                searchText.toLowerCase();
+
+            return (
+                user.name
+                    .toLowerCase()
+                    .includes(text) ||
+
+                user.username
+                    .toLowerCase()
+                    .includes(text)
+            );
+
+        });
+
+
+    container.innerHTML = "";
+
+
+    if (filteredUsers.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty-state">
+                No users found.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    filteredUsers.forEach(function(user) {
+
+        const isFriend =
+            friends.includes(user.id);
+
+        const requestSent =
+            requests.some(function(request) {
+
+                return (
+                    request.from ===
+                    currentUser.id &&
+
+                    request.to ===
+                    user.id
+                );
+
+            });
+
+
+        let button = "";
+
+
+        if (isFriend) {
+
+            button = `
+                <button
+                    class="card-btn remove-btn"
+                    onclick="removeFriend(${user.id})"
+                >
+                    Remove Friend
+                </button>
+            `;
+
+        } else if (requestSent) {
+
+            button = `
+                <button
+                    class="card-btn"
+                    disabled
+                >
+                    Request Sent
+                </button>
+            `;
+
+        } else {
+
+            button = `
+                <button
+                    class="card-btn add-btn"
+                    onclick="sendFriendRequest(${user.id})"
+                >
+                    + Add Friend
+                </button>
+            `;
+
+        }
+
+        container.innerHTML += `
+
+            <div class="user-card">
+
+                <div class="avatar">
+                    ${getInitials(user.name)}
+                </div>
+
+                <h3>
+                    ${user.name}
+                </h3>
+
+                <p class="username">
+                    @${user.username}
+                </p>
+
+                <p class="status">
+                    ● Online
+                </p>
+
+                ${button}
+
+            </div>
+
+        `;
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const navLinks = document.querySelectorAll(".navbar nav a");
+
+    const currentPage = window.location.pathname
+        .split("/")
+        .pop();
+
+    navLinks.forEach(function(link) {
+
+        const linkPage = link.getAttribute("href")
+            .split("/")
+            .pop();
+
+        if (linkPage === currentPage) {
+            link.classList.add("active");
+        } else {
+            link.classList.remove("active");
+        }
+
+    });
+
+});
 document.addEventListener(
     "DOMContentLoaded",
     function() {
 
         checkLogin();
-
-        getUsers();
+        Dashboard();
+        UsersDirectory();
     }
 );
