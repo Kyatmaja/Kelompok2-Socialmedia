@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help - Social Media</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            SocialApp
+        </div>
+
+        <nav>
+            <a href="dashboard.html">dashboard</a>
+            <a href="UsersDirectory.html">User Directory</a>
+            <a href="friends.html">Friends</a>
+            <a href="friend-requests.html">
+                Requests
+                <span id="requestBadge" class="badge">0</span>
+            </a>
+            <a href="notifications.html">
+                Notifications
+                <span id="notificationBadge" class="badge">0</span>
+            </a>
+            <a href="help.html" class="active">Help/FAQ</a>
+        </nav>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+    </header>
+
+    <main class="main-container">
+
+        <div class="page-header">
+            <div>
+                <h1>Help & FAQ</h1>
+                <p>Panduan penggunaan dan pertanyaan umum seputar aplikasi.</p>
+            </div>
+        </div>
+
+        <!-- Menggunakan elemen chat-container bawaan untuk membungkus list FAQ -->
+        <div class="chat-container">
+
+            <div class="user-card search-box">
+                <h3>Bagaimana cara mencari dan menambah teman?</h3>
+                <p class="subtitle">Buka menu User Directory, gunakan kolom pencarian untuk menyaring nama teman, lalu tekan "+ Add Friend".</p>
+            </div>
+
+            <div class="user-card search-box">
+                <h3>Apakah data saya tersimpan secara permanen?</h3>
+                <p class="subtitle">Data tersimpan secara lokal pada LocalStorage browser Anda tanpa menggunakan database/backend pusat.</p>
+            </div>
+
+            <div class="user-card search-box">
+                <h3>Bagaimana cara mengirim pesan ke pengguna lain?</h3>
+                <p class="subtitle">Masuk ke halaman Messages, pilih teman yang ingin diajak bicara, lalu ketik pesan Anda pada kolom yang tersedia.</p>
+            </div>
+
+            <div class="user-card search-box">
+                <h3>Bagaimana cara mengubah profil dan akun?</h3>
+                <p class="subtitle">Akses menu Settings untuk memperbarui informasi seperti Display Name, Bio, dan Mode Privasi akun Anda.</p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

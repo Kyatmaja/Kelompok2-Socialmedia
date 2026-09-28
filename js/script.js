@@ -503,3 +503,41 @@ document.addEventListener(
         UsersDirectory();
     }
 );
+
+function sendMessage() {
+    const input =
+        document.getElementById("messageInput");
+    const chatBox =
+        document.getElementById("chatBox");
+    const text =
+        input.value.trim();
+    if(text === "") return;
+    chatBox.innerHTML += `
+        <div class="message">
+            ${text}
+        </div>
+    `;
+    input.value = "";
+}
+
+function saveSettings() {
+    const settings = {
+        displayName:
+            document.getElementById(
+                "displayName"
+            ).value,
+        bio:
+            document.getElementById(
+                "bio"
+            ).value,
+        privateMode:
+            document.getElementById(
+                "privateMode"
+            ).checked
+    };
+    localStorage.setItem(
+        "settings",
+        JSON.stringify(settings)
+    );
+    alert("Settings saved!");
+}
