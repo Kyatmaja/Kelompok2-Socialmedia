@@ -15,23 +15,39 @@
         </div>
 
         <nav>
-            <a href="dashboard.html">dashboard</a>
-            <a href="UsersDirectory.html">User Directory</a>
-            <a href="friends.html">Friends</a>
+             <a href="dashboard.html" class="active">Dashboard</a>
+
+            <a href="UsersDirectory.html" >User Directory</a>
+
+            <a href="friends.html">
+                Friends
+            </a>
+
             <a href="friend-requests.html">
                 Requests
                 <span id="requestBadge" class="badge">0</span>
             </a>
+
             <a href="notifications.html">
                 Notifications
                 <span id="notificationBadge" class="badge">0</span>
             </a>
-            <a href="messages.html" class="active">Messages</a>
+
+            <a href="messages.html">
+                Messages
+                <span id="messageBadge" class="badge">0</span>
+            </a>
+             
+        </a>
         </nav>
 
         <button class="logout-btn" onclick="logout()">
             Logout
         </button>
+
+        <a href="settings.html">
+                ⚙️
+                </a>
     </header>
 
     <main class="main-container">
