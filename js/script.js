@@ -1,5 +1,9 @@
-//contoh teman
+/* =====================================================
+   DEFAULT USERS
+===================================================== */
+
 const defaultUsers = [
+
     {
         id: 1,
         name: "Andi Pratama",
@@ -7,6 +11,7 @@ const defaultUsers = [
         email: "andi@gmail.com",
         password: "123456789"
     },
+
     {
         id: 2,
         name: "Budi Santoso",
@@ -14,6 +19,7 @@ const defaultUsers = [
         email: "budi@gmail.com",
         password: "123456789"
     },
+
     {
         id: 3,
         name: "Citra Lestari",
@@ -21,6 +27,7 @@ const defaultUsers = [
         email: "citra@gmail.com",
         password: "123456789"
     },
+
     {
         id: 4,
         name: "Dina Amelia",
@@ -28,6 +35,7 @@ const defaultUsers = [
         email: "dina@gmail.com",
         password: "123456789"
     },
+
     {
         id: 5,
         name: "Eko Saputra",
@@ -35,6 +43,7 @@ const defaultUsers = [
         email: "eko@gmail.com",
         password: "123456789"
     },
+
     {
         id: 6,
         name: "Fajar Ramadhan",
@@ -42,13 +51,23 @@ const defaultUsers = [
         email: "fajar@gmail.com",
         password: "123456789"
     }
+
 ];
 
+
+/* =====================================================
+   GET USERS
+===================================================== */
+
 function getUsers() {
-    const users = localStorage.getItem("users");
+
+    const users =
+        localStorage.getItem("users");
 
     if (users) {
+
         return JSON.parse(users);
+
     }
 
     localStorage.setItem(
@@ -60,131 +79,145 @@ function getUsers() {
 }
 
 
+/* =====================================================
+   SAVE USERS
+===================================================== */
+
 function saveUsers(users) {
+
     localStorage.setItem(
         "users",
         JSON.stringify(users)
     );
+
 }
 
+
+/* =====================================================
+   GET CURRENT USER
+===================================================== */
 
 function getCurrentUser() {
-    return JSON.parse(
-        localStorage.getItem("currentUser")
-    );
+
+    const currentUser =
+        localStorage.getItem("currentUser");
+
+    if (!currentUser) {
+        return null;
+    }
+
+    return JSON.parse(currentUser);
+
 }
 
 
-function getFriends() {
-    return JSON.parse(
-        localStorage.getItem("friends") || "[]"
-    );
-}
-
-
-function saveFriends(friends) {
-    localStorage.setItem(
-        "friends",
-        JSON.stringify(friends)
-    );
-}
-
-
-function getRequests() {
-    return JSON.parse(
-        localStorage.getItem("friendRequests") || "[]"
-    );
-}
-
-
-function saveRequests(requests) {
-    localStorage.setItem(
-        "friendRequests",
-        JSON.stringify(requests)
-    );
-}
-
-
-function getNotifications() {
-    return JSON.parse(
-        localStorage.getItem("notifications") || "[]"
-    );
-}
-
-function saveNotifications(notifications) {
-    localStorage.setItem(
-        "notifications",
-        JSON.stringify(notifications)
-    );
-}
+/* =====================================================
+   GET INITIALS
+===================================================== */
 
 function getInitials(name) {
 
-    const words = name.split(" ");
+    const words =
+        name.trim().split(" ");
 
     if (words.length >= 2) {
+
         return (
             words[0].charAt(0) +
             words[1].charAt(0)
         ).toUpperCase();
+
     }
 
     return name
         .charAt(0)
         .toUpperCase();
+
 }
 
-const loginForm = document.getElementById("loginForm");
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+const loginForm =
+    document.getElementById("loginForm");
+
 
 if (loginForm) {
 
-    loginForm.addEventListener("submit", function(event) {
+    loginForm.addEventListener(
+        "submit",
+        function(event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const username =
-            document.getElementById("loginUsername")
-            .value
-            .trim();
 
-        const password =
-            document.getElementById("loginPassword")
-            .value;
+            const username =
+                document
+                    .getElementById("loginUsername")
+                    .value
+                    .trim();
 
-        const users = getUsers();
 
-        const user = users.find(function(item) {
+            const password =
+                document
+                    .getElementById("loginPassword")
+                    .value;
 
-            return (
-                item.username === username &&
-                item.password === password
+
+            const users =
+                getUsers();
+
+
+            const user =
+                users.find(function(item) {
+
+                    return (
+                        item.username === username &&
+                        item.password === password
+                    );
+
+                });
+
+
+            if (!user) {
+
+                alert(
+                    "Username atau password salah!"
+                );
+
+                return;
+            }
+
+
+            localStorage.setItem(
+                "currentUser",
+                JSON.stringify(user)
             );
 
-        });
-
-        if (!user) {
 
             alert(
-                "Username atau password salah!"
+                "Login berhasil!"
             );
 
-            return;
+
+            window.location.href =
+                "dashboard.html";
+
         }
+    );
 
-        localStorage.setItem(
-            "currentUser",
-            JSON.stringify(user)
-        );
-
-        alert("Login berhasil!");
-
-        window.location.href =
-            "dashboard.html";
-    });
 }
+
+
+/* =====================================================
+   REGISTER
+===================================================== */
 
 const registerForm =
     document.getElementById("registerForm");
+
 
 if (registerForm) {
 
@@ -194,32 +227,47 @@ if (registerForm) {
 
             event.preventDefault();
 
+
             const name =
-                document.getElementById(
-                    "registerName"
-                ).value.trim();
+                document
+                    .getElementById("registerName")
+                    .value
+                    .trim();
+
 
             const username =
-                document.getElementById(
-                    "registerUsername"
-                ).value.trim();
+                document
+                    .getElementById("registerUsername")
+                    .value
+                    .trim();
+
 
             const email =
-                document.getElementById(
-                    "registerEmail"
-                ).value.trim();
+                document
+                    .getElementById("registerEmail")
+                    .value
+                    .trim();
+
 
             const password =
-                document.getElementById(
-                    "registerPassword"
-                ).value;
+                document
+                    .getElementById("registerPassword")
+                    .value;
+
 
             const confirmPassword =
-                document.getElementById(
-                    "registerConfirmPassword"
-                ).value;
+                document
+                    .getElementById(
+                        "registerConfirmPassword"
+                    )
+                    .value;
 
-            if (password !== confirmPassword) {
+
+            /* CHECK PASSWORD */
+
+            if (
+                password !== confirmPassword
+            ) {
 
                 alert(
                     "Password dan konfirmasi password tidak sama!"
@@ -228,7 +276,12 @@ if (registerForm) {
                 return;
             }
 
-            const users = getUsers();
+
+            const users =
+                getUsers();
+
+
+            /* CHECK USERNAME */
 
             const usernameExists =
                 users.some(function(user) {
@@ -250,6 +303,9 @@ if (registerForm) {
                 return;
             }
 
+
+            /* CREATE USER */
+
             const newUser = {
 
                 id: Date.now(),
@@ -261,23 +317,37 @@ if (registerForm) {
                 email: email,
 
                 password: password
+
             };
 
 
-            users.push(newUser);
+            users.push(
+                newUser
+            );
 
-            saveUsers(users);
+
+            saveUsers(
+                users
+            );
 
 
             alert(
                 "Registrasi berhasil! Silakan login."
             );
 
+
             window.location.href =
                 "login.html";
+
         }
     );
+
 }
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
 
 function logout() {
 
@@ -285,10 +355,16 @@ function logout() {
         "currentUser"
     );
 
+
     window.location.href =
         "login.html";
+
 }
 
+
+/* =====================================================
+   CHECK LOGIN
+===================================================== */
 
 function checkLogin() {
 
@@ -300,18 +376,14 @@ function checkLogin() {
         window.location.pathname;
 
 
-    const authPages =
-        currentPage.includes(
-            "login.html"
-        ) ||
-        currentPage.includes(
-            "register.html"
-        );
+    const authPage =
+        currentPage.includes("login.html") ||
+        currentPage.includes("register.html");
 
 
     if (
         !currentUser &&
-        !authPages
+        !authPage
     ) {
 
         window.location.href =
@@ -320,224 +392,336 @@ function checkLogin() {
     }
 
 }
+
+
+/* =====================================================
+   USER DIRECTORY
+===================================================== */
+
 function UsersDirectory(
     searchText = ""
 ) {
 
     const container =
-        document.getElementById("usersList");
+        document.getElementById(
+            "usersList"
+        );
+
+
+    /*
+       Jika halaman tidak memiliki usersList,
+       fungsi langsung berhenti.
+    */
 
     if (!container) {
+
         return;
+
     }
+
 
     const currentUser =
         getCurrentUser();
 
+
     if (!currentUser) {
+
         return;
+
     }
 
-    const users = getUsers();
 
-    const friends = getFriends();
+    const users =
+        getUsers();
 
-    const requests = getRequests();
 
+    /*
+       FILTER USER
+    */
 
     const filteredUsers =
-        users.filter(function(user) {
+        users.filter(
+            function(user) {
 
-            if (
-                user.id ===
-                currentUser.id
-            ) {
-                return false;
+
+                /*
+                   Jangan tampilkan akun
+                   yang sedang login.
+                */
+
+                if (
+                    user.id ===
+                    currentUser.id
+                ) {
+
+                    return false;
+
+                }
+
+
+                const text =
+                    searchText
+                        .toLowerCase()
+                        .trim();
+
+
+                /*
+                   Search berdasarkan
+                   nama atau username.
+                */
+
+                return (
+
+                    user.name
+                        .toLowerCase()
+                        .includes(text)
+
+                    ||
+
+                    user.username
+                        .toLowerCase()
+                        .includes(text)
+
+                );
+
             }
+        );
 
-            const text =
-                searchText.toLowerCase();
 
-            return (
-                user.name
-                    .toLowerCase()
-                    .includes(text) ||
-
-                user.username
-                    .toLowerCase()
-                    .includes(text)
-            );
-
-        });
-
+    /*
+       Kosongkan container
+    */
 
     container.innerHTML = "";
 
 
-    if (filteredUsers.length === 0) {
+    /*
+       USER TIDAK DITEMUKAN
+    */
+
+    if (
+        filteredUsers.length === 0
+    ) {
 
         container.innerHTML = `
+
             <div class="empty-state">
-                No users found.
+
+                <h3>
+                    No users found
+                </h3>
+
+                <p>
+                    Try another name
+                    or username.
+                </p>
+
             </div>
+
         `;
 
         return;
+
     }
 
 
-    filteredUsers.forEach(function(user) {
+    /*
+       TAMPILKAN USER
+    */
 
-        const isFriend =
-            friends.includes(user.id);
-
-        const requestSent =
-            requests.some(function(request) {
-
-                return (
-                    request.from ===
-                    currentUser.id &&
-
-                    request.to ===
-                    user.id
-                );
-
-            });
+    filteredUsers.forEach(
+        function(user) {
 
 
-        let button = "";
+            container.innerHTML += `
+
+                <div class="user-card">
+
+                    <div class="avatar">
+
+                        ${getInitials(
+                            user.name
+                        )}
+
+                    </div>
 
 
-        if (isFriend) {
+                    <h3>
 
-            button = `
-                <button
-                    class="card-btn remove-btn"
-                    onclick="removeFriend(${user.id})"
-                >
-                    Remove Friend
-                </button>
-            `;
+                        ${user.name}
 
-        } else if (requestSent) {
+                    </h3>
 
-            button = `
-                <button
-                    class="card-btn"
-                    disabled
-                >
-                    Request Sent
-                </button>
-            `;
 
-        } else {
+                    <p class="username">
 
-            button = `
-                <button
-                    class="card-btn add-btn"
-                    onclick="sendFriendRequest(${user.id})"
-                >
-                    + Add Friend
-                </button>
+                        @${user.username}
+
+                    </p>
+
+
+                    <p class="status">
+
+                        ● Online
+
+                    </p>
+
+
+                    <button
+                        class="card-btn view-btn"
+                        onclick="viewUser('${user.username}')"
+                    >
+
+                        View User
+
+                    </button>
+
+                </div>
+
             `;
 
         }
+    );
 
-        container.innerHTML += `
-
-            <div class="user-card">
-
-                <div class="avatar">
-                    ${getInitials(user.name)}
-                </div>
-
-                <h3>
-                    ${user.name}
-                </h3>
-
-                <p class="username">
-                    @${user.username}
-                </p>
-
-                <p class="status">
-                    ● Online
-                </p>
-
-                ${button}
-
-            </div>
-
-        `;
-    });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
 
-    const navLinks = document.querySelectorAll(".navbar nav a");
+/* =====================================================
+   SEARCH USERS
+===================================================== */
 
-    const currentPage = window.location.pathname
-        .split("/")
-        .pop();
+function searchUsers() {
 
-    navLinks.forEach(function(link) {
+    const searchInput =
+        document.getElementById(
+            "userSearch"
+        );
 
-        const linkPage = link.getAttribute("href")
+
+    if (!searchInput) {
+
+        return;
+
+    }
+
+
+    UsersDirectory(
+        searchInput.value
+    );
+
+}
+
+
+/* =====================================================
+   VIEW USER
+===================================================== */
+
+function viewUser(username) {
+
+    const users =
+        getUsers();
+
+
+    const user =
+        users.find(
+            function(item) {
+
+                return (
+                    item.username ===
+                    username
+                );
+
+            }
+        );
+
+
+    if (!user) {
+
+        alert(
+            "User tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Name: " +
+        user.name +
+        "\nUsername: @" +
+        user.username
+    );
+
+}
+
+
+/* =====================================================
+   ACTIVE NAVBAR
+===================================================== */
+
+function setActiveNavbar() {
+
+    const navLinks =
+        document.querySelectorAll(
+            ".navbar nav a"
+        );
+
+
+    const currentPage =
+        window.location.pathname
             .split("/")
             .pop();
 
-        if (linkPage === currentPage) {
-            link.classList.add("active");
-        } else {
-            link.classList.remove("active");
+
+    navLinks.forEach(
+        function(link) {
+
+
+            const linkPage =
+                link
+                    .getAttribute("href")
+                    .split("/")
+                    .pop();
+
+
+            if (
+                linkPage === currentPage
+            ) {
+
+                link.classList.add(
+                    "active"
+                );
+
+            }
+
+            else {
+
+                link.classList.remove(
+                    "active"
+                );
+
+            }
+
         }
+    );
 
-    });
+}
 
-});
+
+/* =====================================================
+   START APPLICATION
+===================================================== */
+
 document.addEventListener(
     "DOMContentLoaded",
     function() {
 
         checkLogin();
-        Dashboard();
+
+        setActiveNavbar();
+
         UsersDirectory();
+
     }
 );
-
-function sendMessage() {
-    const input =
-        document.getElementById("messageInput");
-    const chatBox =
-        document.getElementById("chatBox");
-    const text =
-        input.value.trim();
-    if(text === "") return;
-    chatBox.innerHTML += `
-        <div class="message">
-            ${text}
-        </div>
-    `;
-    input.value = "";
-}
-
-function saveSettings() {
-    const settings = {
-        displayName:
-            document.getElementById(
-                "displayName"
-            ).value,
-        bio:
-            document.getElementById(
-                "bio"
-            ).value,
-        privateMode:
-            document.getElementById(
-                "privateMode"
-            ).checked
-    };
-    localStorage.setItem(
-        "settings",
-        JSON.stringify(settings)
-    );
-    alert("Settings saved!");
-}
