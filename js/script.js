@@ -1,7 +1,3 @@
-/* =====================================================
-   DEFAULT USERS
-===================================================== */
-
 const defaultUsers = [
 
     {
@@ -55,19 +51,13 @@ const defaultUsers = [
 ];
 
 
-/* =====================================================
-   GET USERS
-===================================================== */
-
 function getUsers() {
 
     const users =
         localStorage.getItem("users");
 
     if (users) {
-
         return JSON.parse(users);
-
     }
 
     localStorage.setItem(
@@ -77,11 +67,6 @@ function getUsers() {
 
     return defaultUsers;
 }
-
-
-/* =====================================================
-   SAVE USERS
-===================================================== */
 
 function saveUsers(users) {
 
@@ -93,10 +78,6 @@ function saveUsers(users) {
 }
 
 
-/* =====================================================
-   GET CURRENT USER
-===================================================== */
-
 function getCurrentUser() {
 
     const currentUser =
@@ -107,13 +88,26 @@ function getCurrentUser() {
     }
 
     return JSON.parse(currentUser);
+}
+
+function getFriends() {
+
+    return JSON.parse(
+        localStorage.getItem("friends") || "[]"
+    );
 
 }
 
 
-/* =====================================================
-   GET INITIALS
-===================================================== */
+function saveFriends(friends) {
+
+    localStorage.setItem(
+        "friends",
+        JSON.stringify(friends)
+    );
+
+}
+
 
 function getInitials(name) {
 
@@ -134,11 +128,6 @@ function getInitials(name) {
         .toUpperCase();
 
 }
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
 
 const loginForm =
     document.getElementById("loginForm");
@@ -197,9 +186,7 @@ if (loginForm) {
             );
 
 
-            alert(
-                "Login berhasil!"
-            );
+            alert("Login berhasil!");
 
 
             window.location.href =
@@ -210,10 +197,6 @@ if (loginForm) {
 
 }
 
-
-/* =====================================================
-   REGISTER
-===================================================== */
 
 const registerForm =
     document.getElementById("registerForm");
@@ -263,8 +246,6 @@ if (registerForm) {
                     .value;
 
 
-            /* CHECK PASSWORD */
-
             if (
                 password !== confirmPassword
             ) {
@@ -280,8 +261,6 @@ if (registerForm) {
             const users =
                 getUsers();
 
-
-            /* CHECK USERNAME */
 
             const usernameExists =
                 users.some(function(user) {
@@ -304,8 +283,6 @@ if (registerForm) {
             }
 
 
-            /* CREATE USER */
-
             const newUser = {
 
                 id: Date.now(),
@@ -321,14 +298,9 @@ if (registerForm) {
             };
 
 
-            users.push(
-                newUser
-            );
+            users.push(newUser);
 
-
-            saveUsers(
-                users
-            );
+            saveUsers(users);
 
 
             alert(
@@ -345,26 +317,17 @@ if (registerForm) {
 }
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
-
 function logout() {
 
     localStorage.removeItem(
         "currentUser"
     );
 
-
     window.location.href =
         "login.html";
 
 }
 
-
-/* =====================================================
-   CHECK LOGIN
-===================================================== */
 
 function checkLogin() {
 
@@ -394,10 +357,6 @@ function checkLogin() {
 }
 
 
-/* =====================================================
-   USER DIRECTORY
-===================================================== */
-
 function UsersDirectory(
     searchText = ""
 ) {
@@ -408,15 +367,8 @@ function UsersDirectory(
         );
 
 
-    /*
-       Jika halaman tidak memiliki usersList,
-       fungsi langsung berhenti.
-    */
-
     if (!container) {
-
         return;
-
     }
 
 
@@ -425,9 +377,7 @@ function UsersDirectory(
 
 
     if (!currentUser) {
-
         return;
-
     }
 
 
@@ -435,69 +385,48 @@ function UsersDirectory(
         getUsers();
 
 
-    /*
-       FILTER USER
-    */
+    const friends =
+        getFriends();
+
 
     const filteredUsers =
-        users.filter(
-            function(user) {
+        users.filter(function(user) {
 
 
-                /*
-                   Jangan tampilkan akun
-                   yang sedang login.
-                */
+            if (
+                user.id === currentUser.id
+            ) {
 
-                if (
-                    user.id ===
-                    currentUser.id
-                ) {
-
-                    return false;
-
-                }
-
-
-                const text =
-                    searchText
-                        .toLowerCase()
-                        .trim();
-
-
-                /*
-                   Search berdasarkan
-                   nama atau username.
-                */
-
-                return (
-
-                    user.name
-                        .toLowerCase()
-                        .includes(text)
-
-                    ||
-
-                    user.username
-                        .toLowerCase()
-                        .includes(text)
-
-                );
+                return false;
 
             }
-        );
 
 
-    /*
-       Kosongkan container
-    */
+            const text =
+                searchText
+                    .toLowerCase()
+                    .trim();
+
+
+            return (
+
+                user.name
+                    .toLowerCase()
+                    .includes(text)
+
+                ||
+
+                user.username
+                    .toLowerCase()
+                    .includes(text)
+
+            );
+
+        });
+
 
     container.innerHTML = "";
 
-
-    /*
-       USER TIDAK DITEMUKAN
-    */
 
     if (
         filteredUsers.length === 0
@@ -521,15 +450,351 @@ function UsersDirectory(
         `;
 
         return;
+    }
+
+
+    filteredUsers.forEach(
+        function(user) {
+
+            const isFriend =
+                friends.some(
+                    function(friend) {
+
+                        return (
+
+                            (
+                                friend.user1 ===
+                                currentUser.id
+
+                                &&
+
+                                friend.user2 ===
+                                user.id
+                            )
+
+                            ||
+
+                            (
+                                friend.user1 ===
+                                user.id
+
+                                &&
+
+                                friend.user2 ===
+                                currentUser.id
+                            )
+
+                        );
+
+                    }
+                );
+
+
+            let button = "";
+
+
+            if (isFriend) {
+
+                button = `
+
+                    <button
+                        class="card-btn remove-btn"
+                        onclick="removeFriend(${user.id})"
+                    >
+
+                        Remove Friend
+
+                    </button>
+
+                `;
+
+            }
+
+            else {
+
+                button = `
+
+                    <button
+                        class="card-btn add-btn"
+                        onclick="addFriend(${user.id})"
+                    >
+
+                        + Add Friend
+
+                    </button>
+
+                `;
+
+            }
+
+
+            container.innerHTML += `
+
+                <div class="user-card">
+
+                    <div class="avatar">
+
+                        ${getInitials(
+                            user.name
+                        )}
+
+                    </div>
+
+
+                    <h3>
+                        ${user.name}
+                    </h3>
+
+
+                    <p class="username">
+                        @${user.username}
+                    </p>
+
+
+                    <p class="status">
+                        ● Online
+                    </p>
+
+
+                    ${button}
+
+                </div>
+
+            `;
+
+        }
+    );
+
+}
+
+
+function searchUsers() {
+
+    const searchInput =
+        document.getElementById(
+            "userSearch"
+        );
+
+
+    if (!searchInput) {
+        return;
+    }
+
+
+    UsersDirectory(
+        searchInput.value
+    );
+
+}
+
+function addFriend(userId) {
+
+    const currentUser =
+        getCurrentUser();
+
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const friends =
+        getFriends();
+
+
+
+    const alreadyFriend =
+        friends.some(
+            function(friend) {
+
+                return (
+
+                    (
+                        friend.user1 ===
+                        currentUser.id
+
+                        &&
+
+                        friend.user2 ===
+                        userId
+                    )
+
+                    ||
+
+                    (
+                        friend.user1 ===
+                        userId
+
+                        &&
+
+                        friend.user2 ===
+                        currentUser.id
+                    )
+
+                );
+
+            }
+        );
+
+
+    if (alreadyFriend) {
+
+        alert(
+            "User sudah menjadi teman."
+        );
+
+        return;
 
     }
 
 
-    /*
-       TAMPILKAN USER
-    */
+    friends.push({
 
-    filteredUsers.forEach(
+        id: Date.now(),
+
+        user1: currentUser.id,
+
+        user2: userId
+
+    });
+
+
+    saveFriends(friends);
+
+
+    const users =
+        getUsers();
+
+
+    const friendUser =
+        users.find(
+            function(user) {
+
+                return (
+                    user.id === userId
+                );
+
+            }
+        );
+
+
+    if (friendUser) {
+
+        alert(
+            friendUser.name +
+            " berhasil ditambahkan sebagai teman!"
+        );
+
+    }
+
+
+    UsersDirectory();
+
+}
+
+
+function displayFriends() {
+
+    const container =
+        document.getElementById(
+            "friendsList"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    const currentUser =
+        getCurrentUser();
+
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const users =
+        getUsers();
+
+
+    const friends =
+        getFriends();
+
+    const friendIds = [];
+
+
+    friends.forEach(
+        function(friend) {
+
+
+            if (
+                friend.user1 ===
+                currentUser.id
+            ) {
+
+                friendIds.push(
+                    friend.user2
+                );
+
+            }
+
+
+            else if (
+                friend.user2 ===
+                currentUser.id
+            ) {
+
+                friendIds.push(
+                    friend.user1
+                );
+
+            }
+
+        }
+    );
+
+    const friendUsers =
+        users.filter(
+            function(user) {
+
+                return friendIds.includes(
+                    user.id
+                );
+
+            }
+        );
+
+
+    container.innerHTML = "";
+
+    if (
+        friendUsers.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <h3>
+                    No Friends Yet
+                </h3>
+
+                <p>
+                    Go to User Directory
+                    and add some friends.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    friendUsers.forEach(
         function(user) {
 
 
@@ -547,32 +812,26 @@ function UsersDirectory(
 
 
                     <h3>
-
                         ${user.name}
-
                     </h3>
 
 
                     <p class="username">
-
                         @${user.username}
-
                     </p>
 
 
                     <p class="status">
-
                         ● Online
-
                     </p>
 
 
                     <button
-                        class="card-btn view-btn"
-                        onclick="viewUser('${user.username}')"
+                        class="card-btn remove-btn"
+                        onclick="removeFriend(${user.id})"
                     >
 
-                        View User
+                        Remove Friend
 
                     </button>
 
@@ -586,76 +845,72 @@ function UsersDirectory(
 }
 
 
-/* =====================================================
-   SEARCH USERS
-===================================================== */
 
-function searchUsers() {
+function removeFriend(userId) {
 
-    const searchInput =
-        document.getElementById(
-            "userSearch"
-        );
+    const currentUser =
+        getCurrentUser();
 
 
-    if (!searchInput) {
-
+    if (!currentUser) {
         return;
-
     }
 
 
-    UsersDirectory(
-        searchInput.value
-    );
+    let friends =
+        getFriends();
 
-}
-
-
-/* =====================================================
-   VIEW USER
-===================================================== */
-
-function viewUser(username) {
-
-    const users =
-        getUsers();
+    friends =
+        friends.filter(
+            function(friend) {
 
 
-    const user =
-        users.find(
-            function(item) {
+                const relationship =
+                    (
 
-                return (
-                    item.username ===
-                    username
-                );
+                        friend.user1 ===
+                        currentUser.id
+
+                        &&
+
+                        friend.user2 ===
+                        userId
+
+                    )
+
+                    ||
+
+                    (
+
+                        friend.user1 ===
+                        userId
+
+                        &&
+
+                        friend.user2 ===
+                        currentUser.id
+
+                    );
+
+
+                return !relationship;
 
             }
         );
 
 
-    if (!user) {
-
-        alert(
-            "User tidak ditemukan."
-        );
-
-        return;
-
-    }
+    saveFriends(friends);
 
 
     alert(
-        "Name: " +
-        user.name +
-        "\nUsername: @" +
-        user.username
+        "Friend removed."
     );
 
+    UsersDirectory();
+
+    displayFriends();
+
 }
-
-
 /* =====================================================
    ACTIVE NAVBAR
 ===================================================== */
@@ -677,14 +932,11 @@ function setActiveNavbar() {
     navLinks.forEach(
         function(link) {
 
-
             const linkPage =
                 link
                     .getAttribute("href")
                     .split("/")
                     .pop();
-
-
             if (
                 linkPage === currentPage
             ) {
@@ -694,7 +946,6 @@ function setActiveNavbar() {
                 );
 
             }
-
             else {
 
                 link.classList.remove(
@@ -707,7 +958,6 @@ function setActiveNavbar() {
     );
 
 }
-
 
 /* =====================================================
    START APPLICATION
@@ -722,6 +972,8 @@ document.addEventListener(
         setActiveNavbar();
 
         UsersDirectory();
+
+        displayFriends();
 
     }
 );

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Friends - Social Media</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+        <div class="logo">
+            SocialApp
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="UsersDirectory.html">
+                User Directory
+            </a>
+
+            <a href="friends.html">
+                Friends
+            </a>
+
+        </nav>
+
+        <button
+            class="logout-btn"
+            onclick="logout()"
+        >
+            Logout
+        </button>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-container">
+
+        <div class="page-header">
+
+            <div>
+                <h1>Friends</h1>
+
+                <p>
+                    Your friend list
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- FRIEND LIST -->
+        <div
+            id="friendsList"
+            class="user-grid"
+        >
+        </div>
+
+    </main>
+
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
