@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - SocialApp</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <a href="index.html" class="logo">SocialApp</a>
+
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="UsersDirectory.html">User Directory</a>
+            <a href="friends.html">Friends</a>
+            <a href="friend-requests.html">Requests <span id="requestBadge" class="badge">0</span></a>
+            <a href="notifications.html">Notifications <span id="notificationBadge" class="badge">0</span></a>
+            <a href="search.html">Search</a>
+            <a href="create.html">Create</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </header>
+
+    <main class="main-container">
+        <div class="feed">
+            <div class="user-card">
+                <div id="profileInfo"></div>
+
+                <p class="profile-bio">Halo! Salam kenal guys.</p>
+
+                <div class="profile-stats">
+                    <div><b>0</b><span>Posts</span></div>
+                    <div><b>5</b><span>Friends</span></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

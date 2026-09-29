@@ -1,0 +1,880 @@
+/* =========================================
+   GLOBAL
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+}
+
+
+/* =========================================
+   LOGIN & REGISTER
+========================================= */
+
+.auth-body {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #667eea,
+            #764ba2
+        );
+}
+
+
+.auth-container {
+    width: 100%;
+    max-width: 430px;
+    padding: 20px;
+}
+
+
+.auth-logo {
+    text-align: center;
+    color: white;
+    margin-bottom: 25px;
+}
+
+
+.auth-logo h1 {
+    font-size: 34px;
+    margin-bottom: 5px;
+}
+
+
+.auth-logo p {
+    opacity: 0.9;
+}
+
+
+.auth-card {
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 10px 35px
+        rgba(0, 0, 0, 0.15);
+}
+
+
+.auth-card h2 {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+
+.form-group label {
+    display: block;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    margin-bottom: 7px;
+}
+
+
+.form-group input {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border:
+        1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+
+.form-group input:focus {
+    border-color: #667eea;
+}
+
+
+/* =========================================
+   PRIMARY BUTTON
+========================================= */
+
+.btn-primary {
+    border: none;
+
+    background: #667eea;
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    text-decoration: none;
+
+    display: inline-block;
+}
+
+
+.btn-primary:hover {
+    background: #5568d9;
+}
+
+
+.auth-card .btn-primary {
+    width: 100%;
+}
+
+
+/* =========================================
+   AUTH FOOTER
+========================================= */
+
+.auth-footer {
+    text-align: center;
+
+    margin-top: 20px;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+.auth-footer a {
+    color: #667eea;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+.navbar {
+    min-height: 70px;
+
+    background: rgb(172, 34, 34);
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 40px;
+
+    gap: 40px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+}
+
+
+/* LOGO */
+
+.logo {
+    font-size: 24px;
+
+    font-weight: bold;
+
+    color: white;
+}
+
+
+/* NAVIGATION */
+
+.navbar nav {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex: 1;
+}
+
+
+.navbar nav a {
+    text-decoration: none;
+
+    color: white;
+
+    padding: 10px 14px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    position: relative;
+
+    transition: 0.2s;
+}
+
+
+/* HOVER */
+
+.navbar nav a:hover {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.15
+        );
+}
+
+
+/* ACTIVE */
+
+.navbar nav a.active {
+    color: #667eea;
+
+    background: white;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+.logout-btn {
+    border: none;
+
+    background: #fee2e2;
+
+    color: #dc2626;
+
+    padding: 9px 15px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+
+.logout-btn:hover {
+    background: #fecaca;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.main-container {
+    max-width: 1100px;
+
+    margin: 35px auto;
+
+    padding: 0 20px;
+}
+
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.page-header {
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+
+.page-header h1 {
+    font-size: 28px;
+
+    margin-bottom: 5px;
+}
+
+
+.page-header p {
+    color: #6b7280;
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.search-box {
+    margin-bottom: 25px;
+}
+
+
+.search-box input {
+    width: 100%;
+
+    padding: 14px 18px;
+
+    border:
+        1px solid #d1d5db;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    background: white;
+}
+
+
+.search-box input:focus {
+    border-color: #667eea;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(102, 126, 234, 0.1);
+}
+
+
+/* =========================================
+   USER GRID
+========================================= */
+
+.user-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+
+/* =========================================
+   USER CARD
+========================================= */
+
+.user-card {
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 22px;
+
+    border:
+        1px solid #e5e7eb;
+
+    text-align: center;
+
+    transition: 0.2s;
+}
+
+
+.user-card:hover {
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 5px 20px
+        rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================
+   AVATAR
+========================================= */
+
+.avatar {
+    width: 70px;
+    height: 70px;
+
+    margin:
+        0 auto 12px;
+
+    border-radius: 50%;
+
+    background: #667eea;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 25px;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   USER INFORMATION
+========================================= */
+
+.user-card h3 {
+    margin-bottom: 5px;
+}
+
+
+.username {
+    color: #6b7280;
+
+    font-size: 14px;
+
+    margin-bottom: 15px;
+}
+
+
+.status {
+    font-size: 12px;
+
+    color: #22c55e;
+
+    margin-bottom: 15px;
+}
+
+
+/* =========================================
+   USER BUTTON
+========================================= */
+
+.card-btn {
+    width: 100%;
+
+    padding: 10px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+
+.view-btn {
+    background: #667eea;
+
+    color: white;
+}
+
+
+.view-btn:hover {
+    background: #5568d9;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-state {
+    background: white;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    padding: 40px 20px;
+
+    text-align: center;
+
+    color: #6b7280;
+
+    grid-column: 1 / -1;
+}
+
+
+.empty-state h3 {
+    color: #1f2937;
+
+    margin-bottom: 8px;
+}
+
+
+/* =========================================
+   CHAT
+========================================= */
+
+.chat-container {
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 12px;
+}
+
+
+.chat-box {
+    min-height: 300px;
+
+    margin-bottom: 15px;
+}
+
+
+.message {
+    background: #667eea;
+
+    color: white;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    margin-bottom: 10px;
+}
+
+
+.message-input {
+    display: flex;
+
+    gap: 10px;
+}
+
+
+.small-btn {
+    width: auto !important;
+}
+
+
+/* =========================================
+   RESPONSIVE TABLET
+========================================= */
+
+@media (
+    max-width: 900px
+) {
+
+    .user-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE MOBILE
+========================================= */
+
+@media (
+    max-width: 600px
+) {
+
+    .navbar {
+        padding: 15px;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 12px;
+    }
+
+
+    .logo {
+        text-align: center;
+    }
+
+
+    .navbar nav {
+        justify-content: center;
+
+        flex-wrap: wrap;
+    }
+
+
+    .logout-btn {
+        width: 100%;
+    }
+
+
+    .user-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .page-header {
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+        gap: 10px;
+    }
+
+}
+
+a.logo {
+    text-decoration: none;
+}
+
+
+.navbar .logo {
+    cursor: pointer;
+}
+
+
+.badge {
+    background: white;
+
+    color: #ac2222;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    padding: 2px 7px;
+
+    border-radius: 10px;
+}
+
+
+/* Home Page */
+
+.feed {
+    max-width: 550px;
+
+    margin: 0 auto;
+}
+
+
+.feed > p {
+    color: #6b7280;
+
+    margin-bottom: 25px;
+}
+
+
+.post-card {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    margin-bottom: 25px;
+
+    overflow: hidden;
+}
+
+
+.post-header,
+.post-actions,
+.post-likes,
+.post-caption-box {
+    padding: 10px 15px;
+}
+
+
+.post-username,
+.caption-username {
+    font-weight: bold;
+}
+
+
+.post-image {
+    width: 100%;
+
+    display: block;
+}
+
+
+.post-actions {
+    display: flex;
+
+    gap: 15px;
+}
+
+
+.post-action-btn {
+    background: none;
+
+    border: none;
+
+    padding: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    color: #667eea;
+
+    cursor: pointer;
+
+    text-decoration: none;
+}
+
+
+.post-action-btn.liked {
+    color: #dc2626;
+}
+
+
+.post-likes {
+    font-weight: bold;
+
+    font-size: 14px;
+}
+
+
+/* Profile */
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+
+    font-size: 36px;
+}
+
+
+.profile-bio {
+    margin-bottom: 15px;
+}
+
+
+.profile-stats {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 40px;
+}
+
+
+.profile-stats div {
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.profile-stats b {
+    font-size: 18px;
+}
+
+
+.profile-stats span {
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+.section-title {
+    margin: 25px 0 12px;
+}
+
+
+.profile-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 5px;
+}
+
+
+.profile-post {
+    width: 100%;
+
+    height: 150px;
+
+    object-fit: cover;
+}
+
+
+/* Post Create */
+
+.form-group textarea {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border:
+        1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    outline: none;
+}
+
+
+.form-group textarea:focus {
+    border-color: #667eea;
+}
+
+
+.image-preview {
+    display: none;
+
+    width: 100%;
+
+    max-height: 300px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    margin-bottom: 18px;
+}
+

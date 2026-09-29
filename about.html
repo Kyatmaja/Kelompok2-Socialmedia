@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Social Media</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            SocialApp
+        </div>
+
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="help.html">Help</a>
+            <a href="about.html">About</a>
+
+        </nav>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+    </header>
+
+    <main class="main-container">
+
+        <div class="page-header">
+            <div>
+                <h1>About Application</h1>
+                <p>Informasi tentang platform media sosial simulasi dan tim pembuatnya.</p>
+            </div>
+        </div>
+
+        <!-- Kartu Deskripsi Aplikasi -->
+        <div class="chat-container search-box">
+            <h2>Tentang Aplikasi</h2>
+            <p class="subtitle">
+                SocialApp adalah platform simulasi media sosial sederhana tanpa backend. Seluruh fitur interaksi, penyimpanan data sementara, dan navigasi dilakukan secara front-end menggunakan HTML, CSS, JavaScript, dan LocalStorage browser.
+            </p>
+        </div>
+
+        <!-- Grid Anggota Kelompok menggunakan komponen user-card bawaan -->
+        <div class="page-header">
+            <div>
+                <h2>Tim Pengembang</h2>
+                <p>Kelompok Mahasiswa UTS</p>
+            </div>
+        </div>
+
+        <div class="user-grid">
+
+            <div class="user-card">
+                <div class="avatar">CB</div>
+                <h3>Chalvinth Breynth</h3>
+                <p class="username">@535220200</p>
+                <p class="status">● Frontend Developer</p>
+            </div>
+
+            <div class="user-card">
+                <div class="avatar">JD</div>
+                <h3>Jesen Danuarta</h3>
+                <p class="username">@535250192</p>
+                <p class="status">● Frontend Developer</p>
+            </div>
+
+            <div class="user-card">
+                <div class="avatar">KL</div>
+                <h3>Kyatmaja Lookman</h3>
+                <p class="username">@535269101</p>
+                <p class="status">● Frontend Developer</p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

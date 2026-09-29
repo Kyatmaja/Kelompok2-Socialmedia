@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Social Media</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            SocialApp
+        </div>
+
+        <nav>
+            <a href="dashboard.html">dashboard</a>
+            <a href="UsersDirectory.html">User Directory</a>
+            <a href="friends.html">Friends</a>
+            <a href="friend-requests.html">
+                Requests
+                <span id="requestBadge" class="badge">0</span>
+            </a>
+            <a href="notifications.html">
+                Notifications
+                <span id="notificationBadge" class="badge">0</span>
+            </a>
+            <a href="search.html" class="active">Search</a>
+        </nav>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+    </header>
+
+    <main class="main-container">
+
+        <div class="page-header">
+            <div>
+                <h1>Search</h1>
+                <p>Cari teman atau pengguna lain di platform.</p>
+            </div>
+        </div>
+
+        <!-- Kolom Pencarian -->
+        <div class="search-box">
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Ketik nama atau username untuk mencari..." 
+                oninput="UsersDirectory(this.value)"
+            >
+        </div>
+
+        <!-- Area Hasil Pencarian (User Grid) -->
+        <div class="user-grid" id="usersList">
+            <!-- Hasil diproses secara otomatis oleh UsersDirectory() -->
+        </div>
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
