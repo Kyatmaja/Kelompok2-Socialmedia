@@ -977,3 +977,279 @@ document.addEventListener(
 
     }
 );
+
+
+/* HOME, PROFILE & CREATE POST */
+
+const oldPosts = [
+
+    {
+        user: "rido90",
+        img: "images/postingan1.png",
+        caption: "post photo",
+        likes: 100
+    },
+
+    {
+        user: "tm_giska",
+        img: "images/postingan2.png",
+        caption: "Daily Quote",
+        likes: 40
+    },
+
+    {
+        user: "eko2006",
+        img: "images/postingan3.png",
+        caption: "Life",
+        likes: 100
+    }
+
+];
+
+function showPosts() {
+
+    const feed =
+        document.getElementById("feed");
+
+    if (!feed) {
+        return;
+    }
+
+    const newPosts =
+        JSON.parse(
+            localStorage.getItem("posts") || "[]"
+        );
+
+    const allPosts =
+        newPosts.concat(oldPosts);
+
+    feed.innerHTML = "";
+
+    allPosts.forEach(
+        function(post) {
+
+            feed.innerHTML += `
+
+                <div class="post-card">
+
+                    <div class="post-header">
+                        <span class="post-username">${post.user}</span>
+                    </div>
+
+                    <img src="${post.img}" alt="Postingan" class="post-image">
+
+                    <div class="post-actions">
+                        <button class="post-action-btn" onclick="likePost(this)">Like</button>
+                        <a href="comments.html" class="post-action-btn">Comment</a>
+                    </div>
+
+                    <div class="post-likes">${post.likes} likes</div>
+
+                    <div class="post-caption-box">
+                        <span class="caption-username">${post.user}</span>
+                        ${post.caption}
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+}
+
+function likePost(button) {
+
+    button.classList.toggle("liked");
+
+}
+
+function showProfile() {
+
+    const box =
+        document.getElementById("profileInfo");
+
+    const currentUser =
+        getCurrentUser();
+
+    if (!box || !currentUser) {
+        return;
+    }
+
+    box.innerHTML = `
+
+        <div class="avatar profile-avatar">
+            ${getInitials(currentUser.name)}
+        </div>
+
+        <h3>${currentUser.name}</h3>
+
+        <p class="username">@${currentUser.username}</p>
+
+    `;
+
+}
+
+let selectedImage = "";
+
+function previewImage(input) {
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(event) {
+
+            selectedImage =
+                event.target.result;
+
+            const preview =
+                document.getElementById("imagePreview");
+
+            preview.src = selectedImage;
+
+            preview.style.display = "block";
+
+        };
+
+    reader.readAsDataURL(
+        input.files[0]
+    );
+
+}
+
+function sharePost() {
+
+    const currentUser =
+        getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+    if (selectedImage === "") {
+
+        alert("Pilih foto terlebih dahulu!");
+
+        return;
+    }
+
+    const posts =
+        JSON.parse(
+            localStorage.getItem("posts") || "[]"
+        );
+
+    posts.unshift({
+
+        user: currentUser.username,
+
+        img: selectedImage,
+
+        caption:
+            document
+                .getElementById("caption")
+                .value,
+
+        likes: 0
+
+    });
+
+    try {
+
+        localStorage.setItem(
+            "posts",
+            JSON.stringify(posts)
+        );
+
+        window.location.href =
+            "index.html";
+
+    }
+
+    catch (error) {
+
+        alert("Foto terlalu besar, coba foto yang lebih kecil.");
+
+    }
+
+}
+
+function logoToHome() {
+
+    const logos =
+        document.querySelectorAll(
+            ".navbar .logo"
+        );
+
+    logos.forEach(
+        function(logo) {
+
+            logo.addEventListener(
+                "click",
+                function() {
+
+                    window.location.href =
+                        "index.html";
+
+                }
+            );
+
+        }
+    );
+
+}
+
+function addNavbarLinks() {
+
+    const nav =
+        document.querySelector(
+            ".navbar nav"
+        );
+
+    if (!nav) {
+        return;
+    }
+
+    const hasCreate =
+        nav.querySelector(
+            'a[href="create.html"]'
+        );
+
+    const hasProfile =
+        nav.querySelector(
+            'a[href="profile.html"]'
+        );
+
+    if (!hasCreate) {
+
+        nav.innerHTML +=
+            '<a href="create.html">Create</a>';
+
+    }
+
+    if (!hasProfile) {
+
+        nav.innerHTML +=
+            '<a href="profile.html">Profile</a>';
+
+    }
+
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        showPosts();
+
+        showProfile();
+
+        logoToHome();
+
+        addNavbarLinks();
+
+        setActiveNavbar();
+
+    }
+);
