@@ -3,39 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search - Social Media</title>
+    <title>Search - SocialApp</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
     <header class="navbar">
-        <div class="logo">
-            SocialApp
-        </div>
+        <a href="index.html" class="logo">SocialApp</a>
 
         <nav>
             <a href="index.html">Dashboard</a>
             <a href="UsersDirectory.html">User Directory</a>
             <a href="friends.html">Friends</a>
             <a href="friend-requests.html">
-                Friend Requests
+                Requests
                 <span id="requestBadge" class="badge">0</span>
             </a>
             <a href="notifications.html">
                 Notifications
                 <span id="notificationBadge" class="badge">0</span>
             </a>
+            <a href="messages.html">
+                Messages
+                <span id="messageBadge" class="badge">0</span>
+            </a>
             <a href="search.html" class="active">Search</a>
+            <a href="create.html">Create</a>
+            <a href="profile.html">Profile</a>
+            <a href="help.html">Help</a>
+            <a href="about.html">About</a>
         </nav>
 
-        <button class="logout-btn" onclick="logout()">
-            Logout
-        </button>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <a href="settings.html" title="Settings">⚙️</a>
     </header>
 
     <main class="main-container">
-
         <div class="page-header">
             <div>
                 <h1>Search</h1>
@@ -43,21 +46,16 @@
             </div>
         </div>
 
-        <!-- Kolom Pencarian -->
         <div class="search-box">
             <input 
                 type="text" 
-                id="searchInput" 
-                placeholder="Ketik nama atau username untuk mencari..." 
-                oninput="UsersDirectory(this.value)"
+                id="userSearch" 
+                placeholder="Search name or username..." 
+                oninput="searchUsers()"
             >
         </div>
 
-        <!-- Area Hasil Pencarian (User Grid) -->
-        <div class="user-grid" id="usersList">
-            <!-- Hasil diproses secara otomatis oleh UsersDirectory() -->
-        </div>
-
+        <div class="user-grid" id="usersList"></div>
     </main>
 
     <script src="js/script.js"></script>

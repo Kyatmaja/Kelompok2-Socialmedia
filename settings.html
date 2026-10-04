@@ -3,34 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings - Social Media</title>
+    <title>Settings - SocialApp</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
     <header class="navbar">
-        <div class="logo">
-            SocialApp
-        </div>
+        <a href="index.html" class="logo">SocialApp</a>
 
         <nav>
             <a href="index.html">Dashboard</a>
+            <a href="UsersDirectory.html">User Directory</a>
+            <a href="friends.html">Friends</a>
+            <a href="friend-requests.html">
+                Requests
+                <span id="requestBadge" class="badge">0</span>
+            </a>
+            <a href="notifications.html">
+                Notifications
+                <span id="notificationBadge" class="badge">0</span>
+            </a>
+            <a href="messages.html">
+                Messages
+                <span id="messageBadge" class="badge">0</span>
+            </a>
+            <a href="search.html">Search</a>
+            <a href="create.html">Create</a>
+            <a href="profile.html">Profile</a>
             <a href="help.html">Help</a>
             <a href="about.html">About</a>
-
         </nav>
-           
-        <button class="logout-btn" onclick="logout()">
-            Logout
-        </button>
-        <a href="settings.html">
-                ⚙️
-                </a>
+
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <a href="settings.html" title="Settings">⚙️</a>
     </header>
 
     <main class="main-container">
-
         <div class="page-header">
             <div>
                 <h1>Account Settings</h1>
@@ -43,7 +51,6 @@
             <p class="subtitle">Perbarui informasi diri Anda di bawah ini.</p>
 
             <form onsubmit="event.preventDefault(); saveSettings();">
-
                 <div class="form-group">
                     <label for="displayName">Display Name</label>
                     <input 
@@ -74,15 +81,12 @@
                 <button type="submit" class="btn-primary small-btn">
                     Save Changes
                 </button>
-
             </form>
         </div>
-
     </main>
 
     <script src="js/script.js"></script>
     <script>
-        // Mengisi form secara otomatis dari LocalStorage jika data settings sudah pernah disimpan
         document.addEventListener("DOMContentLoaded", function() {
             const savedSettings = JSON.parse(localStorage.getItem("settings"));
             if (savedSettings) {

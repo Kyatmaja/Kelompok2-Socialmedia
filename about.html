@@ -3,79 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Social Media</title>
+    <title>About - SocialApp</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
     <header class="navbar">
-        <div class="logo">
-            SocialApp
-        </div>
+        <a href="index.html" class="logo">SocialApp</a>
 
         <nav>
             <a href="index.html">Dashboard</a>
+            <a href="UsersDirectory.html">User Directory</a>
+            <a href="friends.html">Friends</a>
+            <a href="friend-requests.html">
+                Requests
+                <span id="requestBadge" class="badge">0</span>
+            </a>
+            <a href="notifications.html">
+                Notifications
+                <span id="notificationBadge" class="badge">0</span>
+            </a>
+            <a href="messages.html">
+                Messages
+                <span id="messageBadge" class="badge">0</span>
+            </a>
+            <a href="search.html">Search</a>
+            <a href="create.html">Create</a>
+            <a href="profile.html">Profile</a>
             <a href="help.html">Help</a>
-            <a href="about.html">About</a>
-
+            <a href="about.html" class="active">About</a>
         </nav>
 
-        <button class="logout-btn" onclick="logout()">
-            Logout
-        </button>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <a href="settings.html" title="Settings">⚙️</a>
     </header>
 
     <main class="main-container">
-
         <div class="page-header">
             <div>
-                <h1>About Application</h1>
-                <p>Informasi tentang platform media sosial simulasi dan tim pembuatnya.</p>
+                <h1>About Us</h1>
+                <p>SocialApp adalah simulasi platform media sosial sederhana yang dikembangkan untuk Project UTS mata kuliah Front-End Programming Fakultas Teknologi Informasi Universitas Tarumanagara.</p>
             </div>
         </div>
 
-        <!-- Kartu Deskripsi Aplikasi -->
         <div class="chat-container search-box">
-            <h2>Tentang Aplikasi</h2>
+            Tentang Project
             <p class="subtitle">
-                SocialApp adalah platform simulasi media sosial sederhana tanpa backend. Seluruh fitur interaksi, penyimpanan data sementara, dan navigasi dilakukan secara front-end menggunakan HTML, CSS, JavaScript, dan LocalStorage browser.
+                Website ini dirancang untuk menerapkan konsep pengembangan web front-end menggunakan HTML, CSS, JavaScript, dan jQuery tanpa menggunakan backend maupun database. Seluruh interaksi dan data disimulasikan di sisi client menggunakan Local Storage dan manipulasi DOM.
             </p>
         </div>
 
-        <!-- Grid Anggota Kelompok menggunakan komponen user-card bawaan -->
         <div class="page-header">
             <div>
-                <h2>Tim Pengembang</h2>
-                <p>Kelompok Mahasiswa UTS</p>
+                <h2>Developement Team</h2>
+                <p>Website ini dikembangkan oleh:</p>
             </div>
         </div>
 
         <div class="user-grid">
-
             <div class="user-card">
                 <div class="avatar">CB</div>
                 <h3>Chalvinth Breynth</h3>
-                <p class="username">@535220200</p>
-                <p class="status">● Frontend Developer</p>
+                <p class="username">@chalvinth</p>
+                <p class="status">NIM: 535220200</p>
             </div>
 
             <div class="user-card">
                 <div class="avatar">JD</div>
                 <h3>Jesen Danuarta</h3>
-                <p class="username">@535250192</p>
-                <p class="status">● Frontend Developer</p>
+                <p class="username">@jasen</p>
+                <p class="status">NIM: 535250192</p>
             </div>
 
             <div class="user-card">
                 <div class="avatar">KL</div>
                 <h3>Kyatmaja Lookman</h3>
-                <p class="username">@535269101</p>
-                <p class="status">● Frontend Developer</p>
+                <p class="username">@kyatmaja</p>
+                <p class="status">NIM: 535269101</p>
             </div>
-
         </div>
-
     </main>
 
     <script src="js/script.js"></script>

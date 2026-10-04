@@ -190,9 +190,32 @@ if (loginForm) {
             alert("Login berhasil!");
 
             window.location.href =
-                "dashboard.html";
+                "index.html";
         }
     );
+}
+
+function handleLogin(event) {
+    event.preventDefault();
+
+    const usernameInput = document.getElementById("loginUsername").value.trim();
+    const passwordInput = document.getElementById("loginPassword").value.trim();
+
+    const registeredUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    const foundUser = registeredUsers.find(
+        (user) => user.username === usernameInput && user.password === passwordInput
+    );
+
+    if (foundUser) {
+        localStorage.setItem("currentUser", JSON.stringify(foundUser));
+        
+        alert("Login berhasil!");
+        
+        window.location.href = "index.html";
+    } else {
+        alert("Username atau password salah! Silakan periksa kembali.");
+    }
 }
 
 const registerForm =

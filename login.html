@@ -10,19 +10,19 @@
 <body class="auth-body">
 
     <div class="auth-container">
-
         <div class="auth-logo">
             <h1>SocialApp</h1>
-            
+        </div>
 
         <div class="auth-card">
             <h2>Login</h2>
             <p class="subtitle">Welcome back! Please login to your account.</p>
 
-            <form id="loginForm">
+            <!-- Panggil fungsi handleLogin(event) saat form disubmit -->
+            <form id="loginForm" onsubmit="handleLogin(event)">
 
                 <div class="form-group">
-                    <label>Username</label>
+                    <label for="loginUsername">Username</label>
                     <input
                         type="text"
                         id="loginUsername"
@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Password</label>
+                    <label for="loginPassword">Password</label>
                     <input
                         type="password"
                         id="loginPassword"
@@ -49,11 +49,9 @@
 
             <p class="auth-footer">
                 Don't have an account?
-                <a href="register.html">Register</a>
+                <a href="register_2.html">Register</a>
             </p>
-
         </div>
-
     </div>
 
     <script src="js/script.js"></script>

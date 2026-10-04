@@ -3,30 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help - Social Media</title>
+    <title>Help - SocialApp</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
     <header class="navbar">
-        <div class="logo">
-            SocialApp
-        </div>
+        <a href="index.html" class="logo">SocialApp</a>
 
         <nav>
             <a href="index.html">Dashboard</a>
-            <a href="help.html">Help</a>
+            <a href="UsersDirectory.html">User Directory</a>
+            <a href="friends.html">Friends</a>
+            <a href="friend-requests.html">
+                Requests
+                <span id="requestBadge" class="badge">0</span>
+            </a>
+            <a href="notifications.html">
+                Notifications
+                <span id="notificationBadge" class="badge">0</span>
+            </a>
+            <a href="messages.html">
+                Messages
+                <span id="messageBadge" class="badge">0</span>
+            </a>
+            <a href="search.html">Search</a>
+            <a href="create.html">Create</a>
+            <a href="profile.html">Profile</a>
+            <a href="help.html" class="active">Help</a>
             <a href="about.html">About</a>
-
         </nav>
-        <button class="logout-btn" onclick="logout()">
-            Logout
-        </button>
+
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <a href="settings.html" title="Settings">⚙️</a>
     </header>
 
     <main class="main-container">
-
         <div class="page-header">
             <div>
                 <h1>Help & FAQ</h1>
@@ -34,9 +46,7 @@
             </div>
         </div>
 
-        <!-- Menggunakan elemen chat-container bawaan untuk membungkus list FAQ -->
         <div class="chat-container">
-
             <div class="user-card search-box">
                 <h3>Bagaimana cara mencari dan menambah teman?</h3>
                 <p class="subtitle">Buka menu User Directory, gunakan kolom pencarian untuk menyaring nama teman, lalu tekan "+ Add Friend".</p>
@@ -56,9 +66,7 @@
                 <h3>Bagaimana cara mengubah profil dan akun?</h3>
                 <p class="subtitle">Akses menu Settings untuk memperbarui informasi seperti Display Name, Bio, dan Mode Privasi akun Anda.</p>
             </div>
-
         </div>
-
     </main>
 
     <script src="js/script.js"></script>
