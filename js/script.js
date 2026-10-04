@@ -1,5 +1,4 @@
 const defaultUsers = [
-
     {
         id: 1,
         name: "Andi Pratama",
@@ -7,7 +6,6 @@ const defaultUsers = [
         email: "andi@gmail.com",
         password: "123456789"
     },
-
     {
         id: 2,
         name: "Budi Santoso",
@@ -15,7 +13,6 @@ const defaultUsers = [
         email: "budi@gmail.com",
         password: "123456789"
     },
-
     {
         id: 3,
         name: "Citra Lestari",
@@ -23,7 +20,6 @@ const defaultUsers = [
         email: "citra@gmail.com",
         password: "123456789"
     },
-
     {
         id: 4,
         name: "Dina Amelia",
@@ -31,7 +27,6 @@ const defaultUsers = [
         email: "dina@gmail.com",
         password: "123456789"
     },
-
     {
         id: 5,
         name: "Eko Saputra",
@@ -39,7 +34,6 @@ const defaultUsers = [
         email: "eko@gmail.com",
         password: "123456789"
     },
-
     {
         id: 6,
         name: "Fajar Ramadhan",
@@ -47,9 +41,7 @@ const defaultUsers = [
         email: "fajar@gmail.com",
         password: "123456789"
     }
-
 ];
-
 
 function getUsers() {
 
@@ -74,7 +66,6 @@ function saveUsers(users) {
         "users",
         JSON.stringify(users)
     );
-
 }
 
 
@@ -90,14 +81,13 @@ function getCurrentUser() {
     return JSON.parse(currentUser);
 }
 
+
 function getFriends() {
 
     return JSON.parse(
         localStorage.getItem("friends") || "[]"
     );
-
 }
-
 
 function saveFriends(friends) {
 
@@ -105,9 +95,22 @@ function saveFriends(friends) {
         "friends",
         JSON.stringify(friends)
     );
-
 }
 
+function getRequests() {
+
+    return JSON.parse(
+        localStorage.getItem("friendRequests") || "[]"
+    );
+}
+
+function saveRequests(requests) {
+
+    localStorage.setItem(
+        "friendRequests",
+        JSON.stringify(requests)
+    );
+}
 
 function getInitials(name) {
 
@@ -120,13 +123,11 @@ function getInitials(name) {
             words[0].charAt(0) +
             words[1].charAt(0)
         ).toUpperCase();
-
     }
 
     return name
         .charAt(0)
         .toUpperCase();
-
 }
 
 const loginForm =
@@ -141,23 +142,19 @@ if (loginForm) {
 
             event.preventDefault();
 
-
             const username =
                 document
                     .getElementById("loginUsername")
                     .value
                     .trim();
 
-
             const password =
                 document
                     .getElementById("loginPassword")
                     .value;
 
-
             const users =
                 getUsers();
-
 
             const user =
                 users.find(function(item) {
@@ -191,12 +188,9 @@ if (loginForm) {
 
             window.location.href =
                 "dashboard.html";
-
         }
     );
-
 }
-
 
 const registerForm =
     document.getElementById("registerForm");
@@ -246,9 +240,7 @@ if (registerForm) {
                     .value;
 
 
-            if (
-                password !== confirmPassword
-            ) {
+            if (password !== confirmPassword) {
 
                 alert(
                     "Password dan konfirmasi password tidak sama!"
@@ -310,10 +302,8 @@ if (registerForm) {
 
             window.location.href =
                 "login.html";
-
         }
     );
-
 }
 
 
@@ -325,7 +315,6 @@ function logout() {
 
     window.location.href =
         "login.html";
-
 }
 
 
@@ -344,22 +333,14 @@ function checkLogin() {
         currentPage.includes("register.html");
 
 
-    if (
-        !currentUser &&
-        !authPage
-    ) {
+    if (!currentUser && !authPage) {
 
         window.location.href =
             "login.html";
-
     }
-
 }
 
-
-function UsersDirectory(
-    searchText = ""
-) {
+function UsersDirectory(searchText = "") {
 
     const container =
         document.getElementById(
@@ -389,6 +370,10 @@ function UsersDirectory(
         getFriends();
 
 
+    const requests =
+        getRequests();
+
+
     const filteredUsers =
         users.filter(function(user) {
 
@@ -398,7 +383,6 @@ function UsersDirectory(
             ) {
 
                 return false;
-
             }
 
 
@@ -490,6 +474,45 @@ function UsersDirectory(
                 );
 
 
+            const requestSent =
+                requests.some(
+                    function(request) {
+
+                        return (
+
+                            request.from ===
+                            currentUser.id
+
+                            &&
+
+                            request.to ===
+                            user.id
+
+                        );
+
+                    }
+                );
+
+            const requestReceived =
+                requests.some(
+                    function(request) {
+
+                        return (
+
+                            request.from ===
+                            user.id
+
+                            &&
+
+                            request.to ===
+                            currentUser.id
+
+                        );
+
+                    }
+                );
+
+
             let button = "";
 
 
@@ -510,13 +533,47 @@ function UsersDirectory(
 
             }
 
+            else if (requestSent) {
+
+                button = `
+
+                    <button
+                        class="card-btn request-sent-btn"
+                        disabled
+                    >
+
+                        Request Sent
+
+                    </button>
+
+                `;
+
+            }
+
+            else if (requestReceived) {
+
+                button = `
+
+                    <button
+                        class="card-btn add-btn"
+                        onclick="goToRequests()"
+                    >
+
+                        Respond to Request
+
+                    </button>
+
+                `;
+
+            }
+
             else {
 
                 button = `
 
                     <button
                         class="card-btn add-btn"
-                        onclick="addFriend(${user.id})"
+                        onclick="sendFriendRequest(${user.id})"
                     >
 
                         + Add Friend
@@ -564,9 +621,7 @@ function UsersDirectory(
 
         }
     );
-
 }
-
 
 function searchUsers() {
 
@@ -584,10 +639,9 @@ function searchUsers() {
     UsersDirectory(
         searchInput.value
     );
-
 }
 
-function addFriend(userId) {
+function sendFriendRequest(userId) {
 
     const currentUser =
         getCurrentUser();
@@ -598,10 +652,15 @@ function addFriend(userId) {
     }
 
 
+    const requests =
+        getRequests();
+
+
     const friends =
         getFriends();
 
 
+    /* CHECK ALREADY FRIEND */
 
     const alreadyFriend =
         friends.some(
@@ -644,29 +703,106 @@ function addFriend(userId) {
         );
 
         return;
-
     }
 
 
-    friends.push({
+    /* CHECK REQUEST ALREADY SENT */
+
+    const alreadySent =
+        requests.some(
+            function(request) {
+
+                return (
+
+                    request.from ===
+                    currentUser.id
+
+                    &&
+
+                    request.to ===
+                    userId
+
+                );
+
+            }
+        );
+
+
+    if (alreadySent) {
+
+        alert(
+            "Friend request sudah dikirim."
+        );
+
+        return;
+    }
+
+
+    /* CHECK INCOMING REQUEST */
+
+    const incomingRequest =
+        requests.some(
+            function(request) {
+
+                return (
+
+                    request.from ===
+                    userId
+
+                    &&
+
+                    request.to ===
+                    currentUser.id
+
+                );
+
+            }
+        );
+
+
+    if (incomingRequest) {
+
+        alert(
+            "User ini sudah mengirim friend request kepada kamu. Buka halaman Requests."
+        );
+
+        return;
+    }
+
+
+    /* CREATE REQUEST */
+
+    const newRequest = {
 
         id: Date.now(),
 
-        user1: currentUser.id,
+        from:
+            currentUser.id,
 
-        user2: userId
+        to:
+            userId,
 
-    });
+        createdAt:
+            new Date().toLocaleString()
+
+    };
 
 
-    saveFriends(friends);
+    requests.push(
+        newRequest
+    );
+
+
+    saveRequests(
+        requests
+    );
 
 
     const users =
         getUsers();
 
 
-    const friendUser =
+    const targetUser =
         users.find(
             function(user) {
 
@@ -678,11 +814,11 @@ function addFriend(userId) {
         );
 
 
-    if (friendUser) {
+    if (targetUser) {
 
         alert(
-            friendUser.name +
-            " berhasil ditambahkan sebagai teman!"
+            "Friend request sent to " +
+            targetUser.name
         );
 
     }
@@ -690,8 +826,382 @@ function addFriend(userId) {
 
     UsersDirectory();
 
+    updateRequestBadge();
 }
 
+function goToRequests() {
+
+    window.location.href =
+        "friend-requests.html";
+}
+
+function displayFriendRequests() {
+
+    const container =
+        document.getElementById(
+            "friendRequestsList"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    const currentUser =
+        getCurrentUser();
+
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const requests =
+        getRequests();
+
+
+    const users =
+        getUsers();
+
+
+    const incomingRequests =
+        requests.filter(
+            function(request) {
+
+                return (
+                    request.to ===
+                    currentUser.id
+                );
+
+            }
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (
+        incomingRequests.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <h3>
+                    No Friend Requests
+                </h3>
+
+                <p>
+                    You don't have any
+                    friend requests yet.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    incomingRequests.forEach(
+        function(request) {
+
+
+            const sender =
+                users.find(
+                    function(user) {
+
+                        return (
+                            user.id ===
+                            request.from
+                        );
+
+                    }
+                );
+
+
+            if (!sender) {
+                return;
+            }
+
+
+            container.innerHTML += `
+
+                <div class="request-card">
+
+                    <div class="avatar">
+
+                        ${getInitials(
+                            sender.name
+                        )}
+
+                    </div>
+
+
+                    <div class="request-info">
+
+                        <h3>
+                            ${sender.name}
+                        </h3>
+
+                        <p>
+                            @${sender.username}
+                        </p>
+
+                        <small>
+                            Wants to be your friend
+                        </small>
+
+                    </div>
+
+
+                    <div class="request-actions">
+
+                        <button
+                            class="accept-btn"
+                            onclick="acceptFriendRequest(${request.id})"
+                        >
+                            Accept
+                        </button>
+
+
+                        <button
+                            class="reject-btn"
+                            onclick="rejectFriendRequest(${request.id})"
+                        >
+                            Reject
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+}
+
+function acceptFriendRequest(requestId) {
+
+    const currentUser =
+        getCurrentUser();
+
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const requests =
+        getRequests();
+
+
+    const request =
+        requests.find(
+            function(item) {
+
+                return (
+                    item.id === requestId
+                );
+
+            }
+        );
+
+
+    if (!request) {
+
+        alert(
+            "Friend request tidak ditemukan."
+        );
+
+        return;
+    }
+
+
+    if (
+        request.to !==
+        currentUser.id
+    ) {
+
+        alert(
+            "Friend request tidak valid."
+        );
+
+        return;
+    }
+
+
+    const friends =
+        getFriends();
+
+
+    const alreadyFriend =
+        friends.some(
+            function(friend) {
+
+                return (
+
+                    (
+                        friend.user1 ===
+                        request.from
+
+                        &&
+
+                        friend.user2 ===
+                        request.to
+                    )
+
+                    ||
+
+                    (
+                        friend.user1 ===
+                        request.to
+
+                        &&
+
+                        friend.user2 ===
+                        request.from
+                    )
+
+                );
+
+            }
+        );
+
+
+    /* ADD TO FRIEND LIST */
+
+    if (!alreadyFriend) {
+
+        friends.push({
+
+            id: Date.now(),
+
+            user1:
+                request.from,
+
+            user2:
+                request.to
+
+        });
+
+
+        saveFriends(
+            friends
+        );
+    }
+
+
+    /* DELETE REQUEST */
+
+    const newRequests =
+        requests.filter(
+            function(item) {
+
+                return (
+                    item.id !==
+                    requestId
+                );
+
+            }
+        );
+
+
+    saveRequests(
+        newRequests
+    );
+
+
+    alert(
+        "Friend request accepted!"
+    );
+
+
+    displayFriendRequests();
+
+    displayFriends();
+
+    UsersDirectory();
+
+    updateRequestBadge();
+}
+
+function rejectFriendRequest(requestId) {
+
+    const currentUser =
+        getCurrentUser();
+
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const requests =
+        getRequests();
+
+
+    const request =
+        requests.find(
+            function(item) {
+
+                return (
+                    item.id ===
+                    requestId
+                );
+
+            }
+        );
+
+
+    if (!request) {
+
+        return;
+    }
+
+
+    if (
+        request.to !==
+        currentUser.id
+    ) {
+
+        return;
+    }
+
+
+    const newRequests =
+        requests.filter(
+            function(item) {
+
+                return (
+                    item.id !==
+                    requestId
+                );
+
+            }
+        );
+
+
+    saveRequests(
+        newRequests
+    );
+
+
+    alert(
+        "Friend request rejected."
+    );
+
+
+    displayFriendRequests();
+
+    UsersDirectory();
+
+    updateRequestBadge();
+}
 
 function displayFriends() {
 
@@ -722,6 +1232,7 @@ function displayFriends() {
     const friends =
         getFriends();
 
+
     const friendIds = [];
 
 
@@ -740,7 +1251,6 @@ function displayFriends() {
 
             }
 
-
             else if (
                 friend.user2 ===
                 currentUser.id
@@ -755,12 +1265,15 @@ function displayFriends() {
         }
     );
 
+
     const friendUsers =
         users.filter(
             function(user) {
 
-                return friendIds.includes(
-                    user.id
+                return (
+                    friendIds.includes(
+                        user.id
+                    )
                 );
 
             }
@@ -768,6 +1281,7 @@ function displayFriends() {
 
 
     container.innerHTML = "";
+
 
     if (
         friendUsers.length === 0
@@ -783,7 +1297,7 @@ function displayFriends() {
 
                 <p>
                     Go to User Directory
-                    and add some friends.
+                    and send a friend request.
                 </p>
 
             </div>
@@ -791,8 +1305,8 @@ function displayFriends() {
         `;
 
         return;
-
     }
+
 
     friendUsers.forEach(
         function(user) {
@@ -841,10 +1355,7 @@ function displayFriends() {
 
         }
     );
-
 }
-
-
 
 function removeFriend(userId) {
 
@@ -859,6 +1370,7 @@ function removeFriend(userId) {
 
     let friends =
         getFriends();
+
 
     friends =
         friends.filter(
@@ -899,21 +1411,81 @@ function removeFriend(userId) {
         );
 
 
-    saveFriends(friends);
+    saveFriends(
+        friends
+    );
 
 
     alert(
         "Friend removed."
     );
 
+
     UsersDirectory();
 
     displayFriends();
-
 }
-/* =====================================================
-   ACTIVE NAVBAR
-===================================================== */
+
+function updateRequestBadge() {
+
+    const currentUser =
+        getCurrentUser();
+
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const requests =
+        getRequests();
+
+
+    const requestCount =
+        requests.filter(
+            function(request) {
+
+                return (
+                    request.to ===
+                    currentUser.id
+                );
+
+            }
+        ).length;
+
+
+    const badges =
+        document.querySelectorAll(
+            "#requestBadge"
+        );
+
+
+    badges.forEach(
+        function(badge) {
+
+            badge.textContent =
+                requestCount;
+
+
+            if (
+                requestCount === 0
+            ) {
+
+                badge.style.display =
+                    "none";
+
+            }
+
+            else {
+
+                badge.style.display =
+                    "inline-flex";
+
+            }
+
+        }
+    );
+}
 
 function setActiveNavbar() {
 
@@ -932,13 +1504,27 @@ function setActiveNavbar() {
     navLinks.forEach(
         function(link) {
 
+
+            const href =
+                link.getAttribute(
+                    "href"
+                );
+
+
+            if (!href) {
+                return;
+            }
+
+
             const linkPage =
-                link
-                    .getAttribute("href")
+                href
                     .split("/")
                     .pop();
+
+
             if (
-                linkPage === currentPage
+                linkPage ===
+                currentPage
             ) {
 
                 link.classList.add(
@@ -946,6 +1532,7 @@ function setActiveNavbar() {
                 );
 
             }
+
             else {
 
                 link.classList.remove(
@@ -956,12 +1543,7 @@ function setActiveNavbar() {
 
         }
     );
-
 }
-
-/* =====================================================
-   START APPLICATION
-===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -975,11 +1557,12 @@ document.addEventListener(
 
         displayFriends();
 
+        displayFriendRequests();
+
+        updateRequestBadge();
+
     }
 );
-
-
-/* HOME, PROFILE & CREATE POST */
 
 const oldPosts = [
 
@@ -1009,45 +1592,89 @@ const oldPosts = [
 function showPosts() {
 
     const feed =
-        document.getElementById("feed");
+        document.getElementById(
+            "feed"
+        );
+
 
     if (!feed) {
         return;
     }
 
+
     const newPosts =
         JSON.parse(
-            localStorage.getItem("posts") || "[]"
+            localStorage.getItem(
+                "posts"
+            ) || "[]"
         );
 
+
     const allPosts =
-        newPosts.concat(oldPosts);
+        newPosts.concat(
+            oldPosts
+        );
+
 
     feed.innerHTML = "";
 
+
     allPosts.forEach(
         function(post) {
+
 
             feed.innerHTML += `
 
                 <div class="post-card">
 
                     <div class="post-header">
-                        <span class="post-username">${post.user}</span>
+
+                        <span class="post-username">
+                            ${post.user}
+                        </span>
+
                     </div>
 
-                    <img src="${post.img}" alt="Postingan" class="post-image">
+
+                    <img
+                        src="${post.img}"
+                        alt="Postingan"
+                        class="post-image"
+                    >
+
 
                     <div class="post-actions">
-                        <button class="post-action-btn" onclick="likePost(this)">Like</button>
-                        <a href="comments.html" class="post-action-btn">Comment</a>
+
+                        <button
+                            class="post-action-btn"
+                            onclick="likePost(this)"
+                        >
+                            Like
+                        </button>
+
+                        <a
+                            href="comments.html"
+                            class="post-action-btn"
+                        >
+                            Comment
+                        </a>
+
                     </div>
 
-                    <div class="post-likes">${post.likes} likes</div>
+
+                    <div class="post-likes">
+                        ${post.likes} likes
+                    </div>
+
 
                     <div class="post-caption-box">
-                        <span class="caption-username">${post.user}</span>
+
+                        <span class="caption-username">
+                            ${post.user}
+                        </span>
+
                         ${post.caption}
+
                     </div>
 
                 </div>
@@ -1056,67 +1683,108 @@ function showPosts() {
 
         }
     );
-
 }
 
 function likePost(button) {
 
-    button.classList.toggle("liked");
-
+    button.classList.toggle(
+        "liked"
+    );
 }
 
 function showProfile() {
 
     const box =
-        document.getElementById("profileInfo");
+        document.getElementById(
+            "profileInfo"
+        );
+
 
     const currentUser =
         getCurrentUser();
 
-    if (!box || !currentUser) {
+
+    if (
+        !box ||
+        !currentUser
+    ) {
+
         return;
     }
+
 
     box.innerHTML = `
 
         <div class="avatar profile-avatar">
-            ${getInitials(currentUser.name)}
+
+            ${getInitials(
+                currentUser.name
+            )}
+
         </div>
 
-        <h3>${currentUser.name}</h3>
 
-        <p class="username">@${currentUser.username}</p>
+        <h3>
+            ${currentUser.name}
+        </h3>
+
+
+        <p class="username">
+            @${currentUser.username}
+        </p>
 
     `;
-
 }
 
 let selectedImage = "";
 
+
 function previewImage(input) {
+
+    if (
+        !input.files ||
+        !input.files[0]
+    ) {
+
+        return;
+    }
+
 
     const reader =
         new FileReader();
 
+
     reader.onload =
         function(event) {
+
 
             selectedImage =
                 event.target.result;
 
+
             const preview =
-                document.getElementById("imagePreview");
+                document.getElementById(
+                    "imagePreview"
+                );
 
-            preview.src = selectedImage;
 
-            preview.style.display = "block";
+            if (preview) {
+
+                preview.src =
+                    selectedImage;
+
+
+                preview.style.display =
+                    "block";
+
+            }
 
         };
+
 
     reader.readAsDataURL(
         input.files[0]
     );
-
 }
 
 function sharePost() {
@@ -1124,36 +1792,55 @@ function sharePost() {
     const currentUser =
         getCurrentUser();
 
+
     if (!currentUser) {
         return;
     }
 
-    if (selectedImage === "") {
 
-        alert("Pilih foto terlebih dahulu!");
+    if (
+        selectedImage === ""
+    ) {
+
+        alert(
+            "Pilih foto terlebih dahulu!"
+        );
 
         return;
     }
 
+
+    const captionInput =
+        document.getElementById(
+            "caption"
+        );
+
+
     const posts =
         JSON.parse(
-            localStorage.getItem("posts") || "[]"
+            localStorage.getItem(
+                "posts"
+            ) || "[]"
         );
+
 
     posts.unshift({
 
-        user: currentUser.username,
+        user:
+            currentUser.username,
 
-        img: selectedImage,
+        img:
+            selectedImage,
 
         caption:
-            document
-                .getElementById("caption")
-                .value,
+            captionInput
+                ? captionInput.value
+                : "",
 
         likes: 0
 
     });
+
 
     try {
 
@@ -1162,6 +1849,7 @@ function sharePost() {
             JSON.stringify(posts)
         );
 
+
         window.location.href =
             "index.html";
 
@@ -1169,10 +1857,11 @@ function sharePost() {
 
     catch (error) {
 
-        alert("Foto terlalu besar, coba foto yang lebih kecil.");
+        alert(
+            "Foto terlalu besar, coba foto yang lebih kecil."
+        );
 
     }
-
 }
 
 function logoToHome() {
@@ -1182,12 +1871,19 @@ function logoToHome() {
             ".navbar .logo"
         );
 
+
     logos.forEach(
         function(logo) {
+
+
+            logo.style.cursor =
+                "pointer";
+
 
             logo.addEventListener(
                 "click",
                 function() {
+
 
                     window.location.href =
                         "index.html";
@@ -1197,7 +1893,6 @@ function logoToHome() {
 
         }
     );
-
 }
 
 function addNavbarLinks() {
@@ -1207,19 +1902,23 @@ function addNavbarLinks() {
             ".navbar nav"
         );
 
+
     if (!nav) {
         return;
     }
+
 
     const hasCreate =
         nav.querySelector(
             'a[href="create.html"]'
         );
 
+
     const hasProfile =
         nav.querySelector(
             'a[href="profile.html"]'
         );
+
 
     if (!hasCreate) {
 
@@ -1228,13 +1927,13 @@ function addNavbarLinks() {
 
     }
 
+
     if (!hasProfile) {
 
         nav.innerHTML +=
             '<a href="profile.html">Profile</a>';
 
     }
-
 }
 
 document.addEventListener(
@@ -1248,6 +1947,12 @@ document.addEventListener(
         logoToHome();
 
         addNavbarLinks();
+
+        /*
+            Jalankan lagi setelah
+            Create dan Profile ditambahkan
+            supaya active navbar benar.
+        */
 
         setActiveNavbar();
 

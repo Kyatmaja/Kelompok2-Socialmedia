@@ -3,25 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Directory - Social Media</title>
+
+    <title>Friend Requests - Social Media</title>
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <header class="navbar">
-    <div class="logo">SocialApp</div>
+
+    <div class="logo">
+        SocialApp
+    </div>
 
     <nav>
-        <a href="index.html">Dashboard</a>
-        <a href="UsersDirectory.html">User Directory</a>
+
+        <a href="index.html">
+            Dashboard
+        </a>
+
+        <a href="UsersDirectory.html">
+            User Directory
+        </a>
 
         <a href="friends.html">
             Friends
         </a>
 
         <a href="friend-requests.html">
-           Friend Requests
+            Friend Requests
             <span id="requestBadge" class="badge">0</span>
         </a>
 
@@ -29,40 +40,25 @@
             Notifications
             <span id="notificationBadge" class="badge">0</span>
         </a>
-        <a href="messages.html">
-                Messages
-                <span id="messageBadge" class="badge">0</span>
-            </a>
+
     </nav>
 
     <button class="logout-btn" onclick="logout()">
         Logout
     </button>
 
-    <a href="settings.html">
-                ⚙️
-                </a>
 </header>
 
 <main class="main-container">
 
     <div class="page-header">
         <div>
-            <h1>User Directory</h1>
-            <p>Find and connect with other users</p>
+            <h1>Friend Requests</h1>
+            <p>Accept or reject friend requests</p>
         </div>
     </div>
 
-    <div class="search-box">
-        <input
-            type="text"
-            id="userSearch"
-            placeholder="Search name or username..."
-            oninput="searchUsers()"
-        >
-    </div>
-
-    <div id="usersList" class="user-grid"></div>
+    <div id="friendRequests" class="request-list"></div>
 
 </main>
 
