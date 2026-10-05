@@ -42,20 +42,39 @@
         <div class="page-header">
             <div>
                 <h1>Search</h1>
-                <p>Cari teman atau pengguna lain di platform.</p>
+                <p>Cari teman atau postingan di platform.</p>
             </div>
         </div>
 
-        <div class="search-box">
+        <!-- Filter & Input Pencarian -->
+        <div class="search-box" style="display: flex; gap: 10px; align-items: center;">
             <input 
                 type="text" 
-                id="userSearch" 
-                placeholder="Search name or username..." 
-                oninput="searchUsers()"
+                id="globalSearchInput" 
+                placeholder="Ketik kata kunci pencarian..." 
+                oninput="handleGlobalSearch()"
+                style="flex: 1;"
             >
+            <select id="searchFilter" onchange="handleGlobalSearch()" style="padding: 10px; border-radius: 8px;">
+                <option value="all">Semua</option>
+                <option value="users">Teman / User</option>
+                <option value="posts">Postingan</option>
+            </select>
         </div>
 
-        <div class="user-grid" id="usersList"></div>
+        <!-- Section Hasil Pencarian Pengguna -->
+        <div id="usersResultSection">
+            <h2>Hasil Teman / Pengguna</h2>
+            <div class="user-grid" id="usersList"></div>
+        </div>
+
+        <br>
+
+        <!-- Section Hasil Pencarian Postingan -->
+        <div id="postsResultSection">
+            <h2>Hasil Postingan</h2>
+            <div id="postsList" class="chat-container"></div>
+        </div>
     </main>
 
     <script src="js/script.js"></script>
